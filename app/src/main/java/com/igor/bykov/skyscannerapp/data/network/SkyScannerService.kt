@@ -4,28 +4,29 @@ import com.igor.bykov.skyscannerapp.data.flight.model.FlightResponse
 import com.igor.bykov.skyscannerapp.data.flight.model.SessionResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface SkyScannerService {
 
-  @POST("/apiservices/pricing/v1.0/?" +
-//      "country=UK\n" +
-//      "    &currency=GBP\n" +
-//      "    &locale=en-GB\n" +
-//      "    &locationSchema=iata\n" +
-//      "    &originplace=EDI\n" +
-//      "    &destinationplace=LHR\n" +
-//      "    &outbounddate=2017-05-30\n" +
-//      "    &inbounddate=2017-06-02\n" +
-//      "    &adults=1\n" +
-//      "    &children=0\n" +
-//      "    &infants=0\n" +
-      "apikey=ss630745725358065467897349852985")
-  fun createSession(): Deferred<Call<SessionResponse>>
+  @FormUrlEncoded
+  @POST("/apiservices/pricing/v1.0/")
+  fun createSession(
+          @Field ("country") country: String = "UK",
+          @Field ("locale") locale: String = "en-GB",
+          @Field ("currency") currency: String = "GBP",
+          @Field ("originplace") originplace: String = "EDI-sky",
+          @Field ("destinationplace") destinationplace: String = "LHR-sky",
+          @Field ("outbounddate") outbounddate: String = "2019-05-30",
+          @Field ("inbounddate") inbounddate: String = "2019-06-30",
+          @Field ("adults") adults: Int = 1,
+          @Field ("children") children: Int = 0,
+          @Field ("infants") infants: Int = 0,
+          @Field ("apikey") apikey: String = ""
+  ): Deferred<Call<SessionResponse>>
 
-  @GET("/apiservices/pricing/v1.0/")
-  fun fetchFlight(@Query("apiKey") apiKey: String): Deferred<FlightResponse>
+  @FormUrlEncoded
+  @Headers("Content-Type: application/x-www-form-urlencoded")
+  @GET("/apiservices/pricing/v1.0/{SessionKey}")
+  fun fetchFlight(@Path("SessionKey") sessionKey: String, @Query("apiKey") apiKey: String = ""): Deferred<FlightResponse>
 
 }

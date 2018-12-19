@@ -23,7 +23,7 @@ object NetModule {
 
     bind<Retrofit>() with singleton {
       Retrofit.Builder()
-          .baseUrl("https://business.skyscanner.net/")
+          .baseUrl("http://partners.api.skyscanner.net")
           .addCallAdapterFactory(CoroutineCallAdapterFactory())
           .addConverterFactory(GsonConverterFactory.create())
           .client(instance())
