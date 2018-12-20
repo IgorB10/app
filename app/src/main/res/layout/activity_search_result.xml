@@ -16,6 +16,7 @@
       android:background="?attr/colorPrimary"
       android:minHeight="?attr/actionBarSize"
       app:theme="@style/ToolbarTheme"
+      app:contentInsetStart="0dp"
       >
 
 
@@ -42,6 +43,8 @@
           android:text="@string/flight_details"
           android:textColor="#D8D8D8"
           android:fontFamily="@string/font_roboto_regular"
+          android:maxLines="1"
+          android:ellipsize="end"
           />
 
     </LinearLayout>

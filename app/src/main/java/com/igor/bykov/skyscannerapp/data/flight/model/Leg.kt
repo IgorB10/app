@@ -10,5 +10,11 @@ data class Leg(
         @SerializedName("Arrival")
         val arrival: String,
         @SerializedName("Carriers")
-        val carriers: List<Long>
+        val carriers: List<Long>,
+        @SerializedName("Duration")
+        val duration: Long,
+        @SerializedName("OriginStation")
+        val originStation: Long,
+        @SerializedName("DestinationStation")
+        val destinationStation: Long
 )

@@ -6,5 +6,6 @@ data class FlightViewModel(
         val secondFlight: FlightDetailsViewModel?,
         val rating: Int,
         val price: String,
-        val operator: String
+        val operator: String?,
+        val url: String
 )

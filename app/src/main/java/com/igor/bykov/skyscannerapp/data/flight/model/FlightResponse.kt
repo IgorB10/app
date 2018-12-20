@@ -12,5 +12,10 @@ data class FlightResponse(
         @SerializedName("Carriers")
         val carriers: List<Carriers>,
         @SerializedName("Currencies")
-        val currencies: List<Currencies>
+        val currencies: List<Currencies>,
+        @SerializedName("Places")
+        val places: List<Place>,
+        @SerializedName("Agents")
+        val agents: List<Agent>
+
 )

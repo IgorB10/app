@@ -13,4 +13,5 @@
     <string name="flight_details">12 Nov - 16 Nov, 1 adult, economy</string>
     <string name="direct">Direct</string>
     <string name="rating">10.0</string>
+    <string name="via">via %1$s</string>
 </resources>

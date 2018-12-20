@@ -5,6 +5,7 @@ import com.igor.bykov.skyscannerapp.data.di.NetModule
 import com.igor.bykov.skyscannerapp.presentation.di.AppModule
 import com.igor.bykov.skyscannerapp.presentation.di.DataModule
 import net.danlew.android.joda.JodaTimeAndroid
+import org.greenrobot.eventbus.EventBus
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.androidModule
@@ -21,6 +22,7 @@ class SkyScannerApplication : Application(), KodeinAware {
 
   override fun onCreate() {
     super.onCreate()
+    EventBus.builder().addIndex(SkyScannerEventBusIndex()).installDefaultEventBus()
     JodaTimeAndroid.init(this)
     Timber.plant(Timber.DebugTree())
   }
