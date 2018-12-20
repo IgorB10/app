@@ -6,7 +6,7 @@ import retrofit2.Call
 
 interface SkyScannerFlightRepository {
 
-  suspend fun createSession() : String
+  suspend fun createSession(outbounddate: String, inbounddate: String) : String
 
-  suspend fun fetchFlights(pageIdex: Int) : Deferred<FlightResponse>
+  suspend fun fetchFlights(outbounddate: String, inbounddate: String, pageIdex: Int) : Deferred<FlightResponse>
 }

@@ -12,16 +12,16 @@ class SkyScannerFlightDataRepository(private val service: SkyScannerService) : S
 
   private var sessionKey: String? = null
 
-  override suspend fun createSession(): String {
+  override suspend fun createSession(outbounddate: String, inbounddate: String): String {
     if(sessionKey.isNullOrBlank()) {
-      val session = service.createSession().execute()
+      val session = service.createSession(outbounddate = outbounddate, inbounddate = inbounddate).execute()
       val path = session.headers()["location"]?.split("/") ?: Collections.emptyList()
       sessionKey = path[path.size - 1]
     }
     return sessionKey!!
   }
 
-  override suspend fun fetchFlights(pageIdex: Int): Deferred<FlightResponse> {
-    return service.fetchFlight(pageIndex = pageIdex, sessionKey = createSession())
+  override suspend fun fetchFlights(outbounddate: String, inbounddate: String, pageIdex: Int): Deferred<FlightResponse> {
+    return service.fetchFlight(pageIndex = pageIdex, sessionKey = createSession(outbounddate, inbounddate))
   }
 }

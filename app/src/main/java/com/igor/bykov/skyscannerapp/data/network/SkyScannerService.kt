@@ -1,5 +1,6 @@
 package com.igor.bykov.skyscannerapp.data.network
 
+import com.igor.bykov.skyscannerapp.BuildConfig
 import com.igor.bykov.skyscannerapp.data.flight.model.FlightResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
@@ -15,18 +16,18 @@ interface SkyScannerService {
           @Field("currency") currency: String = "GBP",
           @Field("originplace") originplace: String = "EDI-sky",
           @Field("destinationplace") destinationplace: String = "LHR-sky",
-          @Field("outbounddate") outbounddate: String = "2019-05-30",
-          @Field("inbounddate") inbounddate: String = "2019-06-30",
+          @Field("outbounddate") outbounddate: String,
+          @Field("inbounddate") inbounddate: String,
           @Field("adults") adults: Int = 1,
-          @Field("stops") stops: Int = 0,
+//          @Field("stops") stops: Int = 0,
           @Field("children") children: Int = 0,
           @Field("infants") infants: Int = 0,
-          @Field("apikey") apikey: String = "ss630745725358065467897349852985"
+          @Field("apikey") apikey: String = BuildConfig.API_KEY
   ): Call<Any>
 
   @GET("/apiservices/pricing/v1.0/{SessionKey}")
   fun fetchFlight(@Path("SessionKey") sessionKey: String,
-      @Query("apiKey") apiKey: String = "ss630745725358065467897349852985",
+      @Query("apiKey") apiKey: String = BuildConfig.API_KEY,
       @Query("pageIndex") pageIndex: Int,
       @Query("pageSize") pageSize: String = "10"
   ): Deferred<FlightResponse>
