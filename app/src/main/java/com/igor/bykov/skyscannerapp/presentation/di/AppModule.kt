@@ -1,6 +1,6 @@
 package com.igor.bykov.skyscannerapp.presentation.di
 
-import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.SearchResultPresenter
+import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.SearchResultViewModel
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -10,8 +10,8 @@ object AppModule {
 
   val module = Kodein.Module("AppModule") {
 
-    bind<SearchResultPresenter>() with provider {
-      SearchResultPresenter(instance())
+    bind<SearchResultViewModel>() with provider {
+      SearchResultViewModel(instance())
     }
   }
 }

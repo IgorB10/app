@@ -53,6 +53,7 @@ dependencies {
   implementation libraries.gson
 
   implementation libraries.ktx
+  implementation libraries.paging
 
   implementation libraries.eventbus
   kapt libraries.eventbusProcessor

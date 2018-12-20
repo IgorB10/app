@@ -1,11 +1,16 @@
 package com.igor.bykov.skyscannerapp.presentation.ui.searchresult
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
+import com.igor.bykov.skyscannerapp.data.flight.model.Flight
 import com.igor.bykov.skyscannerapp.domain.flight.interactor.GetFlight
-import com.igor.bykov.skyscannerapp.presentation.mvp.BasePresenter
+import com.igor.bykov.skyscannerapp.presentation.mvvm.BaseViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class SearchResultPresenter(val getFlight: GetFlight) : BasePresenter<SearchResultView>() {
+class SearchResultViewModel(private val getFlight: GetFlight) : BaseViewModel() {
+
+  var flightList: LiveData<PagedList<Flight>>? = null
 
   fun fetchFlights() {
     launch {
@@ -13,7 +18,6 @@ class SearchResultPresenter(val getFlight: GetFlight) : BasePresenter<SearchResu
       try {
         val flights = getFlight.buildUseCaseObservable(Unit).await()
 
-        view.renderFlights(flights)
       } catch (e: Exception) {
         Timber.e(e)
       }
