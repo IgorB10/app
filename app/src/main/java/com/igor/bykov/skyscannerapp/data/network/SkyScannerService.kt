@@ -18,6 +18,7 @@ interface SkyScannerService {
           @Field("outbounddate") outbounddate: String = "2019-05-30",
           @Field("inbounddate") inbounddate: String = "2019-06-30",
           @Field("adults") adults: Int = 1,
+          @Field("stops") stops: Int = 0,
           @Field("children") children: Int = 0,
           @Field("infants") infants: Int = 0,
           @Field("apikey") apikey: String = "ss630745725358065467897349852985"

@@ -4,75 +4,79 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 repositories {
-  maven { url "https://clojars.org/repo/" }
+    maven { url "https://clojars.org/repo/" }
 }
 android {
-  compileSdkVersion versions.compileSdk
-  buildToolsVersion versions.buildTools
-  defaultConfig {
-    applicationId "com.igor.bykov.skyscannerapp"
-    minSdkVersion versions.minSdk
-    targetSdkVersion versions.targetSdk
-    versionCode versions.code
-    versionName versions.name
-    vectorDrawables.useSupportLibrary = true
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+    defaultConfig {
+        applicationId "com.igor.bykov.skyscannerapp"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.code
+        versionName versions.name
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-  }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 kapt {
-  arguments {
-    arg('eventBusIndex', 'com.igor.bykov.skyscannerapp.SkyScannerEventBusIndex')
-  }
+    arguments {
+        arg('eventBusIndex', 'com.igor.bykov.skyscannerapp.SkyScannerEventBusIndex')
+    }
 }
 
 dependencies {
 
-  implementation libraries.annotation
-  implementation libraries.appcompat
-  implementation libraries.material
-  implementation libraries.recyclerview
-  implementation libraries.cardview
-  implementation libraries.constraintlayout
+    implementation libraries.annotation
+    implementation libraries.appcompat
+    implementation libraries.material
+    implementation libraries.recyclerview
+    implementation libraries.cardview
+    implementation libraries.constraintlayout
 
-  implementation libraries.kodein
-  implementation libraries.kodeinAndroid
+    implementation libraries.kodein
+    implementation libraries.kodeinAndroid
 
-  implementation libraries.okHttp
-  implementation libraries.retrofit
-  implementation libraries.retrofitGsonConverter
-  implementation libraries.retrofitRxJavaAdapter
-  implementation libraries.okHttpLoggingInterceptor
-  implementation libraries.gson
+    implementation libraries.okHttp
+    implementation libraries.retrofit
+    implementation libraries.retrofitGsonConverter
+    implementation libraries.retrofitRxJavaAdapter
+    implementation libraries.okHttpLoggingInterceptor
+    implementation libraries.gson
 
-  implementation libraries.ktx
-  implementation libraries.paging
+    implementation libraries.ktx
+    implementation libraries.paging
 
-  implementation libraries.eventbus
-  kapt libraries.eventbusProcessor
+    implementation libraries.eventbus
+    kapt libraries.eventbusProcessor
 
-  implementation libraries.timber
+    implementation libraries.timber
+    implementation libraries.jodaTime
 
-  implementation libraries.coroutines
-  implementation libraries.coroutinesAndroid
+    implementation libraries.glide
+    kapt libraries.glideProcessor
 
-  implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation libraries.coroutines
+    implementation libraries.coroutinesAndroid
 
-  testImplementation libraries.junit
-  testImplementation libraries.robolectric
-  testImplementation libraries.assertJ
-  testImplementation libraries.equalsVerifier
-  testImplementation libraries.mockitoCore
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
-  androidTestImplementation 'androidx.test:runner:1.1.1'
-  androidTestImplementation 'androidx.test:rules:1.1.1'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation libraries.junit
+    testImplementation libraries.robolectric
+    testImplementation libraries.assertJ
+    testImplementation libraries.equalsVerifier
+    testImplementation libraries.mockitoCore
+
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
 

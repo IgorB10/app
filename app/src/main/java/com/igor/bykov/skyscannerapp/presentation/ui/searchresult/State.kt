@@ -1,3 +1,5 @@
 package com.igor.bykov.skyscannerapp.presentation.ui.searchresult
 
-class SearchAdapter
+enum class State {
+  DONE, LOADING, ERROR
+}

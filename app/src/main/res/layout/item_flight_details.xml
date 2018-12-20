@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/carrierLogo"
+        android:layout_width="32dp"
+        android:layout_height="32dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="6dp">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="15:35 - 17:00"
+            android:fontFamily="@string/font_roboto_medium"
+            android:textSize="13sp"
+            android:textColor="@color/black_color_10"
+            />
+
+        <TextView
+            android:id="@+id/carrierDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="BUD-LGW, Wizz Air"
+            android:fontFamily="@string/font_roboto_regular"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/gray"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/stops"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/direct"
+            android:fontFamily="@string/font_roboto_medium"
+            android:textSize="13sp"
+            android:textColor="@color/black_color_10"
+            />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2h 20m"
+            android:fontFamily="@string/font_roboto_regular"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:textColor="@color/gray"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

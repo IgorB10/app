@@ -4,86 +4,53 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.igor.bykov.skyscannerapp.R
-import com.igor.bykov.skyscannerapp.data.flight.model.Flight
+import com.igor.bykov.skyscannerapp.data.flight.model.Leg
+import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.State
+import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.model.FlightViewModel
 
-class FlightsAdapter() : PagedListAdapter<Flight, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+class FlightsAdapter : PagedListAdapter<FlightViewModel, RecyclerView.ViewHolder>(FlightDiffCallback) {
 
+  private val DATA_VIEW_TYPE = 1
+  private val FOOTER_VIEW_TYPE = 2
 
-  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-    when (getItemViewType(position)) {
-      R.layout.reddit_post_item -> (holder as RedditPostViewHolder).bind(getItem(position))
-      R.layout.network_state_item -> (holder as NetworkStateItemViewHolder).bindTo(
-          networkState)
-    }
-  }
-
-  override fun onBindViewHolder(
-      holder: RecyclerView.ViewHolder,
-      position: Int,
-      payloads: MutableList<Any>) {
-    if (payloads.isNotEmpty()) {
-      val item = getItem(position)
-      (holder as RedditPostViewHolder).updateScore(item)
-    } else {
-      onBindViewHolder(holder, position)
-    }
-  }
+  private var state = State.LOADING
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    return when (viewType) {
-      R.layout.reddit_post_item -> RedditPostViewHolder.create(parent, glide)
-      R.layout.network_state_item -> NetworkStateItemViewHolder.create(parent, retryCallback)
-      else -> throw IllegalArgumentException("unknown view type $viewType")
-    }
+    return if (viewType == DATA_VIEW_TYPE) FlightViewHolder.create(parent) else FooterViewHolder.create(parent)
   }
 
-  private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+  override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    if (getItemViewType(position) == DATA_VIEW_TYPE)
+      (holder as FlightViewHolder).bind(getItem(position))
+    else (holder as FooterViewHolder).bind(state)
+  }
 
   override fun getItemViewType(position: Int): Int {
-    return if (hasExtraRow() && position == itemCount - 1) {
-      R.layout.network_state_item
-    } else {
-      R.layout.reddit_post_item
-    }
+    return if (position < super.getItemCount()) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
   }
 
   override fun getItemCount(): Int {
-    return super.getItemCount() + if (hasExtraRow()) 1 else 0
+    return super.getItemCount() + if (hasFooter()) 1 else 0
   }
 
-  fun setNetworkState(newNetworkState: NetworkState?) {
-    val previousState = this.networkState
-    val hadExtraRow = hasExtraRow()
-    this.networkState = newNetworkState
-    val hasExtraRow = hasExtraRow()
-    if (hadExtraRow != hasExtraRow) {
-      if (hadExtraRow) {
-        notifyItemRemoved(super.getItemCount())
-      } else {
-        notifyItemInserted(super.getItemCount())
-      }
-    } else if (hasExtraRow && previousState != newNetworkState) {
-      notifyItemChanged(itemCount - 1)
-    }
+  private fun hasFooter(): Boolean {
+    return super.getItemCount() != 0 && state == State.LOADING
+  }
+
+  fun setState(state: State) {
+    this.state = state
+    notifyItemChanged(super.getItemCount())
   }
 
   companion object {
+    val FlightDiffCallback = object : DiffUtil.ItemCallback<FlightViewModel>() {
+      override fun areItemsTheSame(oldItem: FlightViewModel, newItem: FlightViewModel): Boolean {
+        return oldItem.id == newItem.id
+      }
 
-    val POST_COMPARATOR = object : DiffUtil.ItemCallback<Flight>() {
-      override fun areContentsTheSame(oldItem: Flight, newItem: Flight): Boolean =
-          oldItem == newItem
-
-      override fun areItemsTheSame(oldItem: Flight, newItem: Flight): Boolean =
-          oldItem.login == newItem.login
-
-    }
-
-    private fun sameExceptScore(oldItem: Flight, newItem: Flight): Boolean {
-      // DON'T do this copy in a real app, it is just convenient here for the demo :)
-      // because reddit randomizes scores, we want to pass it as a payload to minimize
-      // UI updates between refreshes
-      return oldItem == newItem
+      override fun areContentsTheSame(oldItem: FlightViewModel, newItem: FlightViewModel): Boolean {
+        return oldItem == newItem
+      }
     }
   }
 }

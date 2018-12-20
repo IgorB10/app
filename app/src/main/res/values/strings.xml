@@ -2,4 +2,15 @@
   <string name="app_name">Skyscanner App</string>
   <string name="more">More</string>
   <string name="search">Search</string>
+    <string name="search_result_count">365 of 365 results</string>
+    <string name="search_and_filters">search &amp; filters</string>
+
+    <string name="font_roboto_regular">sans-serif</string>
+    <string name="font_roboto_light">sans-serif-light</string>
+    <string name="font_roboto_medium">sans-serif-medium</string>
+    <string name="font_roboto_black">sans-serif</string>
+    <string name="direction">BUD - London</string>
+    <string name="flight_details">12 Nov - 16 Nov, 1 adult, economy</string>
+    <string name="direct">Direct</string>
+    <string name="rating">10.0</string>
 </resources>

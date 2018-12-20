@@ -2,21 +2,26 @@ package com.igor.bykov.skyscannerapp.presentation.ui.searchresult
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.igor.bykov.skyscannerapp.R
 import com.igor.bykov.skyscannerapp.data.flight.model.FlightResponse
+import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.adapter.FlightsAdapter
 import kotlinx.android.synthetic.main.activity_search_result.*
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
-import org.kodein.di.generic.instance
 
-class SearchResultActivity : AppCompatActivity(), SearchResultView, KodeinAware {
+class SearchResultActivity : AppCompatActivity(), KodeinAware {
 
   override val kodein: Kodein by closestKodein()
 
-  private val presenter: SearchResultViewModel by instance()
+  private lateinit var viewModel: SearchResultViewModel
+  private lateinit var adapter: FlightsAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -27,18 +32,31 @@ class SearchResultActivity : AppCompatActivity(), SearchResultView, KodeinAware 
     supportActionBar?.setDisplayShowHomeEnabled(true)
     supportActionBar?.setDisplayShowTitleEnabled(false)
 
+    viewModel = ViewModelProvider(this, SearchResultViewModelFactory(kodein)).get(SearchResultViewModel::class.java)
 
+    initAdapter()
+    initState()
+  }
 
+  private fun initAdapter() {
+    adapter = FlightsAdapter()
+    searchResultRv.layoutManager = LinearLayoutManager(this)
+    searchResultRv.adapter = adapter
+    viewModel.newsList.observe(this, Observer {
+      adapter.submitList(it)
+    })
+  }
+
+  private fun initState() {
+    viewModel.getState().observe(this, Observer { state ->
+      if (!viewModel.listIsEmpty()) {
+        adapter.setState(state ?: State.DONE)
+      }
+    })
   }
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.search_result, menu)
     return true
   }
-
-  override fun renderFlights(flights: FlightResponse) {
-
-  }
-
-
 }

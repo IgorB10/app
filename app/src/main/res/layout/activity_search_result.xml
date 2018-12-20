@@ -29,17 +29,19 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="start"
-          android:text="BUD - London"
+          android:text="@string/direction"
           android:textColor="@color/white"
           android:textSize="20sp"
+          android:fontFamily="@string/font_roboto_medium"
           />
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="start"
-          android:text="12 Nov - 16 Nov, 1 adult, economy"
+          android:text="@string/flight_details"
           android:textColor="#D8D8D8"
+          android:fontFamily="@string/font_roboto_regular"
           />
 
     </LinearLayout>
@@ -64,7 +66,8 @@
           android:layout_weight="1"
           android:layout_height="match_parent"
           android:gravity="start"
-          android:text="365 of 365 results"/>
+          android:fontFamily="@string/font_roboto_regular"
+          android:text="@string/search_result_count"/>
 
       <TextView
           android:id="@+id/info_text"
@@ -73,7 +76,9 @@
           android:layout_height="match_parent"
           android:textAllCaps="true"
           android:gravity="end"
-          android:text="search and filters"/>
+          android:fontFamily="@string/font_roboto_regular"
+          android:textColor="@android:color/black"
+          android:text="@string/search_and_filters"/>
 
     </LinearLayout>
 
@@ -84,7 +89,9 @@
       android:id="@+id/searchResultRv"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:layoutAnimation="@anim/layout_animation_fall_down"
       android:layout_marginTop="8dp"
+      android:clipToPadding="false"
       />
 
 </LinearLayout>
