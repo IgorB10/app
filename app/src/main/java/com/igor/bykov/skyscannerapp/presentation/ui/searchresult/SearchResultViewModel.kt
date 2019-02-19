@@ -7,6 +7,7 @@ import androidx.paging.PagedList
 import com.igor.bykov.skyscannerapp.domain.flight.interactor.GetFlight
 import com.igor.bykov.skyscannerapp.presentation.mvvm.BaseViewModel
 import com.igor.bykov.skyscannerapp.presentation.ui.searchresult.model.FlightViewModel
+import java.util.*
 
 class SearchResultViewModel(getFlight: GetFlight) : BaseViewModel() {
 
